@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 
-<jsp:include page="header.jsp"/>
+<jsp:include page="header3.jsp"/>
 
 <section class="login-page">
     <h2>Zaloguj się</h2>
