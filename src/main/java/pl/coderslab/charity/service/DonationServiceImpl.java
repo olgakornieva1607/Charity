@@ -21,4 +21,9 @@ public class DonationServiceImpl implements DonationService{
         return donationRepository.count();
     }
 
+    @Override
+    public void add(Donation donation) {
+        donationRepository.save(donation);
+    }
+
 }
