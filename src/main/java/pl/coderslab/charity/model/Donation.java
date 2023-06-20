@@ -38,18 +38,21 @@ public class Donation {
     @Column(name="city")
     private String city;
 
-    @Column(name="zipCode")
+    @Column(name="zip_code")
     private String zipCode;
 
-    @Column(name="pickUpDate")
+    @Column(name="pick_up_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
 
-    @Column(name="pickUpTime")
+    @Column(name="pick_up_time")
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime pickUpTime;
 
-    @Column(name="pickUpComment")
+    @Column(name="pick_up_comment")
     private String pickUpComment;
+
+    @Column(name="phone_number")
+    private String phoneNumber;
 
 }
