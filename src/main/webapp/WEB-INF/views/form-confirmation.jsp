@@ -2,9 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html lang="pl">
-<jsp:include page="header2.jsp"/>
+<jsp:include page="formHeader.jsp"/>
 
     <div class="slogan container container--90">
         <h2>
