@@ -4,7 +4,6 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="formHeader.jsp"/>
-
     <div class="slogan container container--90">
         <div class="slogan--item">
             <h1>
@@ -70,6 +69,7 @@
                         </label>
                     </div>
                 </c:forEach>
+                <form:errors path="categories" cssClass="error"  style="color: red; font-size: small;"/>
 
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn next-step">Dalej</button>
@@ -83,9 +83,11 @@
                 <div class="form-group form-group--inline">
                     <label>
                         Liczba 60l worków:
-                        <form:input path="quantity" id="quantity" type="number" name="bags" step="1" min="1"/>
+                        <form:input class="form-control" path="quantity" id="quantity"  step="1" min="1"/>
+                        <form:errors path="quantity" cssClass="error" style="color: red; font-size: small"/>
                     </label>
                 </div>
+
 
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
@@ -100,16 +102,16 @@
                 <c:forEach items="${institutions}" var="institution">
                     <div class="form-group form-group--checkbox">
                         <label>
-                            <form:radiobutton path="institution" value="${institution.id}"/>
+                            <form:radiobutton class="form-control" path="institution" value="${institution.id}"/>
                                 <span class="checkbox radio"></span>
                                 <span class="description">
                                     <div class="title"><c:out value="${institution.name}"/></div>
-                                    <div class="subtitle"><c:out value="${institution.description}"/></div>
+                                    <div class="subtitle">Cel i misja:<c:out value="${institution.description}"/></div>
                                 </span>
                         </label>
                     </div>
                 </c:forEach>
-
+                <form:errors path="institution" cssClass="error"  style="color: red; font-size: small;"/>
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
                     <button type="button" class="btn next-step">Dalej</button>
@@ -124,22 +126,25 @@
                     <div class="form-section--column">
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
-                            <label> Ulica <form:input path="street" id="street" type="text" name="address"/> </label>
+                            <label> Ulica <form:input class="form-control" path="street" id="street" /> </label>
+                            <form:errors path="street" cssClass="error" style="color: red; font-size: small;"/>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label> Miasto <form:input path="city" id="city" type="text" name="city" /> </label>
+                            <label> Miasto <form:input class="form-control" path="city" id="city"  /> </label>
+                            <form:errors path="city" cssClass="error" style="color: red; font-size: small;"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
-                                Kod pocztowy <form:input path="zipCode" id="zipCode" type="text" name="postcode" />
+                                Kod pocztowy <form:input class="form-control" path="zipCode" id="zipCode"  />
+                                <form:errors path="zipCode" cssClass="error" style="color: red; font-size: small;"/>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
-                                Numer telefonu <form:input path="phoneNumber" id="phoneNumber" type="phone" name="phone" />
+                                Numer telefonu <form:input path="phoneNumber" id="phoneNumber"  />
                             </label>
                         </div>
                     </div>
@@ -147,21 +152,24 @@
                     <div class="form-section--column">
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
-                            <label> Data <form:input type="date" path="pickUpDate" id="pickUpDate"  name="data" /> </label>
+                            <label> Data <form:input class="form-control" type="date" path="pickUpDate" id="pickUpDate"   /> </label>
+                            <form:errors path="pickUpDate" cssClass="error" style="color: red; font-size: small;"/>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label> Godzina <form:input type="time" path="pickUpTime" id="pickUpTime" name="time" /> </label>
+                            <label> Godzina <form:input class="form-control" type="time" path="pickUpTime" id="pickUpTime" /> </label>
+                            <form:errors path="pickUpTime" cssClass="error" style="color: red; font-size: small;"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 Uwagi dla kuriera
-                                <form:textarea path="pickUpComment" id="pickUpComment" rows="5" name="more_info"/>
+                                <form:textarea path="pickUpComment" id="pickUpComment" rows="5" />
                             </label>
                         </div>
                     </div>
                 </div>
+                <form:input type="hidden" name="user.id" path="user.id" id="id"/>
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
                     <button type="button" class="btn next-step">Dalej</button>
@@ -179,16 +187,17 @@
                         <ul>
                             <li>
                                 <span class="icon icon-bag"></span>
-                                <span class="summary--text"
-                                >4 worki ubrań w dobrym stanie dla dzieci</span
-                                >
+                                <span class="summary--text">
+                                <span id="quantity"></span>
+                                <span id="category"></span>
+                                </span>
                             </li>
 
                             <li>
                                 <span class="icon icon-hand"></span>
-                                <span class="summary--text"
-                                >Dla fundacji "Mam marzenie" w Warszawie</span
-                                >
+                                <span class="summary--text">
+                                    Dla: <span id="institution"></span>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -196,20 +205,19 @@
                     <div class="form-section form-section--columns">
                         <div class="form-section--column">
                             <h4>Adres odbioru:</h4>
-                            <ul>
+                                <ul id="address">
                                 <li></li>
-                                <li>Warszawa</li>
-                                <li>99-098</li>
-                                <li>123 456 789</li>
+                                <li></li>
+                                <li></li>
                             </ul>
                         </div>
 
                         <div class="form-section--column">
                             <h4>Termin odbioru:</h4>
-                            <ul>
-                                <li>13/12/2018</li>
-                                <li>15:40</li>
-                                <li>Brak uwag</li>
+                            <ul id="date">
+                                <li></li>
+                                <li></li>
+                                <li></li>
                             </ul>
                         </div>
                     </div>
@@ -218,12 +226,12 @@
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
                     <button type="submit" class="btn">Potwierdzam</button>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </div>
             </div>
         </form>
         </form:form>
     </div>
 </section>
-
 <jsp:include page="footer.jsp"/>
 </body>

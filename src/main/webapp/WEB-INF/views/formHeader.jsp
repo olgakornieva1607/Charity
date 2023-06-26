@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%--<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>--%>
+<%--<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>--%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -15,19 +16,23 @@
 <body>
 <header class="header--form-page">
     <nav class="container container--70">
+        <sec:authorize access="isAuthenticated()">
         <ul class="nav--actions">
             <li class="logged-user">
-                Witaj Agata
+                Witaj <sec:authentication property="principal.user.name"/>
+                <form action="<c:url value="/logout"/>" method="post" id="loginForm">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
                 <ul class="dropdown">
                     <li><a href="#">Profil</a></li>
                     <li><a href="#">Moje zbiórki</a></li>
-                    <li><a href="#">Wyloguj</a></li>
+                    <li><a href="#" onclick="document.getElementById('loginForm').submit()">Wyloguj</a></li>
                 </ul>
             </li>
         </ul>
-
+        </sec:authorize>
         <ul>
-            <li><a href="/donation" class="btn btn--without-border active">Start</a></li>
+            <li><a href="<c:url value="/donation"/>" class="btn btn--without-border active">Start</a></li>
             <li><a href="index.html#steps" class="btn btn--without-border">O co chodzi?</a></li>
             <li><a href="index.html#about-us" class="btn btn--without-border">O nas</a></li>
             <li><a href="index.html#help" class="btn btn--without-border">Fundacje i organizacje</a></li>

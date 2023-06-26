@@ -1,5 +1,9 @@
 package pl.coderslab.charity.model;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,22 +26,28 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Min(value = 1)
     @Column(name="quantity")
     private Integer quantity;
 
+    @NotEmpty
     @ManyToMany
     private List<Category> categories = new ArrayList<>();
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "institution_id", nullable = false)
     private Institution institution;
 
+    @NotBlank
     @Column(name="street")
     private String street;
 
+    @NotBlank
     @Column(name="city")
     private String city;
 
+    @NotBlank
     @Column(name="zip_code")
     private String zipCode;
 
@@ -54,5 +64,10 @@ public class Donation {
 
     @Column(name="phone_number")
     private String phoneNumber;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

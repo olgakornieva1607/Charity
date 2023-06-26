@@ -1,6 +1,8 @@
 package pl.coderslab.charity.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,18 +16,27 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_id")
+    @Column(name="id")
     private Long id;
 
-    @Column(name="user_name")
+    @NotBlank
+    @Size(min = 2, max = 20)
+    @Column(name="name")
     private String name;
 
-    @Column(name="user_passwd")
-    private String password;
-
-    @Column(name="user_email", unique=true)
+    @NotBlank
+    @Size(min = 6, max = 30)
+    @Column(name="email", unique=true)
     private String email;
 
+    @NotBlank
+    @Column(name="password")
+    private String password;
+
+    @Transient
+    private String password2;
+
+    @Column(name="enabled")
     private int enabled;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
