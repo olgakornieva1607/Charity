@@ -14,13 +14,15 @@ import pl.coderslab.charity.service.UserService;
 @RequiredArgsConstructor
 public class UserController {
 
+    private static final String REGISTRATION_PAGE = "register";
+
     private final UserService userService;
 
 
     @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("user") User user){
 
-        return "register";
+        return REGISTRATION_PAGE;
     }
 
 
@@ -33,15 +35,22 @@ public class UserController {
                     "Użytkownik z takim adresem email już istnieje");
         }
         if(bindingResult.hasErrors()){
-            return "register";
+            return REGISTRATION_PAGE;
         }
         if(user.getPassword().equals(user.getPassword2())){
             userService.saveUser(user);
         }else{
-            return "register";
+            return REGISTRATION_PAGE;
         }
         return "login";
     }
+
+
+    @GetMapping("/admin")
+    public String showAdmin() {
+        return "admin/admin";
+    }
+
 
 
 }

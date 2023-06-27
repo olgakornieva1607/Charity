@@ -7,13 +7,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) throws Exception {
 
         http.authorizeHttpRequests((authorize) -> authorize
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
@@ -22,15 +26,14 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers("/", "/registration").permitAll()
-                                .requestMatchers("/admin").hasRole("ADMIN")
+                                .requestMatchers("/admin/*").hasRole("ADMIN")
                                 .requestMatchers("/images/**",
                                         "/js/**", "/css/**").permitAll()
                                 .anyRequest().authenticated()
 
                 )
                 .formLogin((form) -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/donation", true)
+                        .loginPage("/login").successHandler(customAuthenticationSuccessHandler)
                         .permitAll()
                 )
                 .logout((logout) -> logout.logoutUrl("/logout").permitAll());
@@ -38,6 +41,10 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+        return new CustomAuthenticationSuccessHandler();
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
