@@ -24,6 +24,11 @@ public class User {
     private String name;
 
     @NotBlank
+    @Size(min = 2, max = 20)
+    @Column(name = "surname")
+    private String surname;
+
+    @NotBlank
     @Size(min = 6, max = 30)
     @Column(name = "email", unique = true)
     private String email;

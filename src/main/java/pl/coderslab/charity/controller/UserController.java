@@ -47,10 +47,8 @@ public class UserController {
 
 
     @GetMapping("/admin")
-    public String showAdmin() {
+    public String showAdminDashboard() {
         return "admin/admin";
     }
-
-
 
 }

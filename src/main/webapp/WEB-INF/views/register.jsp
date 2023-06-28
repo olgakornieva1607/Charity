@@ -16,6 +16,12 @@
         </div>
 
         <div class="form-group">
+            <form:input class="form-control" path="surname" id="surname" maxlength="20"
+                        placeholder="Surname"/>
+            <form:errors path="surname" cssClass="error" style="color: red; font-size: small;"/>
+        </div>
+
+        <div class="form-group">
             <form:input class="form-control" path="email" id="email" type="email" name="email" maxlength="30"
                         placeholder="Email"/>
             <form:errors path="email" cssClass="error" style="color: red; font-size: small;"/>
