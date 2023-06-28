@@ -10,60 +10,29 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-<%--    <!-- Content Row -->--%>
-    <div class="row">
-
-        <!-- Admin's name-->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Imię</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <sec:authentication property="principal.user.name"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h5 class="m-0 font-weight-bold text-primary"></h5>
         </div>
+        <div class="card-body">
 
-        <!-- Admin's surname -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Imię</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <sec:authentication property="principal.user.surname"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Admin's email-->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Imię</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <sec:authentication property="principal.user.email"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>Email</th>
+                    </tr>
+                        <tr>
+                            <td><sec:authentication property="principal.user.name"/></td>
+                            <td><sec:authentication property="principal.user.surname"/></td>
+                            <td><sec:authentication property="principal.user.email"/></td>
+                        </tr>
+                </table>
             </div>
         </div>
     </div>
+</html>
 </div>
 <!-- /.container-fluid -->
 
