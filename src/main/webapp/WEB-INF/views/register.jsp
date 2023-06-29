@@ -34,7 +34,7 @@
         </div>
         <div class="form-group">
             <form:password class="form-control" path="password2" id="password2" maxlength="20"
-                           placeholder="Hasło"/>
+                           placeholder="Powtórz hasło"/>
             <form:errors path="password2" cssClass="error" style="color: red; font-size: small;"/>
         </div>
 

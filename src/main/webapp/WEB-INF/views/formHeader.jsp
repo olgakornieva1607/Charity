@@ -32,7 +32,7 @@
         </ul>
         </sec:authorize>
         <ul>
-            <li><a href="<c:url value="/donation"/>" class="btn btn--without-border active">Start</a></li>
+            <li><a href="<c:url value="/"/>" class="btn btn--without-border active">Start</a></li>
             <li><a href="index.html#steps" class="btn btn--without-border">O co chodzi?</a></li>
             <li><a href="index.html#about-us" class="btn btn--without-border">O nas</a></li>
             <li><a href="index.html#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
