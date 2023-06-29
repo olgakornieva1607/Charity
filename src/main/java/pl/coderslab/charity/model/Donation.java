@@ -1,9 +1,6 @@
 package pl.coderslab.charity.model;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,7 +23,7 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Min(value = 1)
+    @NotNull
     @Column(name="quantity")
     private Integer quantity;
 
@@ -51,10 +48,14 @@ public class Donation {
     @Column(name="zip_code")
     private String zipCode;
 
+    @Future
+    @NotNull
     @Column(name="pick_up_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
 
+    @Future
+    @NotNull
     @Column(name="pick_up_time")
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime pickUpTime;
@@ -62,6 +63,7 @@ public class Donation {
     @Column(name="pick_up_comment")
     private String pickUpComment;
 
+    @NotBlank
     @Column(name="phone_number")
     private String phoneNumber;
 
