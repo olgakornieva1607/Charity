@@ -27,9 +27,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers("/", "/registration").permitAll()
                                 .requestMatchers("/admin/*").hasRole("ADMIN")
-                                .requestMatchers("/images/**",
-                                        "/js/**", "/css/**").permitAll()
+                                .requestMatchers("/resources/images/**","/resources/js/**",
+                                        "/resources/css/**", "/WEB-INF/views/header.jsp",
+                                        "/WEB-INF/views/loginHeader.jsp","/WEB-INF/views/footer.jsp").permitAll()
                                 .anyRequest().authenticated()
+
 
                 )
                 .formLogin((form) -> form
