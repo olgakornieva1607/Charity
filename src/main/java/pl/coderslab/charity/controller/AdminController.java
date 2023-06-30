@@ -7,7 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.model.Institution;
+import pl.coderslab.charity.model.Role;
 import pl.coderslab.charity.service.InstitutionService;
+import pl.coderslab.charity.service.RoleService;
+import pl.coderslab.charity.service.UserService;
 
 @Controller
 @RequiredArgsConstructor
@@ -17,8 +20,9 @@ public class AdminController {
     private static final String INSTITUTION_ADD = "admin/institution-add";
     private static final String INSTITUTION_EDIT = "admin/institution-edit";
     private static final String INSTITUTION_ALL = "redirect:/admin/institution/all";
-
     private final InstitutionService institutionService;
+    private final UserService userService;
+    private final RoleService roleService;
 
     @GetMapping("")
     public String showAdminDashboard() {
@@ -29,7 +33,7 @@ public class AdminController {
     @GetMapping("/institution/all")
     public String showAllInstitutions(Model model){
         model.addAttribute("institutions", institutionService.getAllInstitutions());
-        return "admin/institutions";
+        return "institutions-all";
     }
 
     @GetMapping("/institution/new")
@@ -71,5 +75,13 @@ public class AdminController {
         institutionService.add(institution);
         return INSTITUTION_ALL;
     }
+
+    @GetMapping("/admin/all")
+    public String showAllAdmins(Model model){
+        Role roleAdmin = roleService.findByName("ROLE_ADMIN");
+        model.addAttribute("admins", userService.findAlLByRole(roleAdmin));
+        return "admin/admins-all";
+    }
+
 
 }

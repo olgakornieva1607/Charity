@@ -68,7 +68,7 @@
 
         <!-- Nav Item - Donations -->
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" href="<c:url value="/admin/admin/all"/>">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Administratorzy</span></a>
         </li>
