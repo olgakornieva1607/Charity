@@ -52,7 +52,7 @@
 
         <!-- Nav Item - Institutions -->
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" href="<c:url value="/admin/institution/all"/>">
                 <i class="fas fa-fw fa-heart"></i>
                 <span>Fundacje</span></a>
         </li>

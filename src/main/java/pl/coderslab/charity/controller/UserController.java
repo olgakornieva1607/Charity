@@ -46,9 +46,4 @@ public class UserController {
     }
 
 
-    @GetMapping("/admin")
-    public String showAdminDashboard() {
-        return "admin/admin";
-    }
-
 }

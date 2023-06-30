@@ -1,5 +1,7 @@
 package pl.coderslab.charity.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,11 +16,15 @@ import jakarta.persistence.*;
     public class Institution {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private long id;
+        private Long id;
 
+        @NotBlank
+        @Size(min = 2, max = 50)
         @Column(name="name")
         private String name;
 
+        @NotBlank
+        @Size(min = 2, max = 100)
         @Column(name="description")
         private String description;
 
