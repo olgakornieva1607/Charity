@@ -60,12 +60,12 @@
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
 
-                <c:forEach items="${categories}" var="category" >
-                    <div class="form-group form-group--checkbox">
+                <c:forEach items="${categories}" var="category"  >
+                    <div class="form-group form-group--checkbox" >
                         <label>
                             <input type="checkbox" name="categories" value="${category.id}" />
                             <span class="checkbox"></span>
-                            <span class="description"><c:out value="${category.name}" /></span>
+                            <span class="description">"${category.name}"</span>
                         </label>
                     </div>
                 </c:forEach>
@@ -100,13 +100,13 @@
                 <h3>Wybierz organizacje, której chcesz pomóc:</h3>
 
                 <c:forEach items="${institutions}" var="institution">
-                    <div class="form-group form-group--checkbox">
+                    <div class="form-group form-group--checkbox" >
                         <label>
-                            <form:radiobutton class="form-control" path="institution" value="${institution.id}"/>
+                            <form:radiobutton class="form-control" id="institutions" path="institution" value="${institution.id}"/>
                                 <span class="checkbox radio"></span>
                                 <span class="description">
-                                    <div class="title"><c:out value="${institution.name}"/></div>
-                                    <div class="subtitle">Cel i misja:<c:out value="${institution.description}"/></div>
+                                    <div class="title">"${institution.name}"</div>
+                                    <div class="subtitle">Cel i misja: ${institution.description}</div>
                                 </span>
                         </label>
                     </div>
@@ -131,28 +131,25 @@
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label> Miasto <form:input class="form-control" path="city" id="city"  /> </label>
+                            <label> Miasto <form:input class="form-control" path="city" id="city" /> </label>
                             <form:errors path="city" cssClass="error" style="color: red; font-size: small;"/>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label>
-                                Kod pocztowy <form:input class="form-control" path="zipCode" id="zipCode"  />
-                                <form:errors path="zipCode" cssClass="error" style="color: red; font-size: small;"/>
-                            </label>
+                            <label>Kod pocztowy <form:input class="form-control" path="zipCode" id="zipCode"/></label>
+                            <form:errors path="zipCode" cssClass="error" style="color: red; font-size: small;"/>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label>
-                                Numer telefonu <form:input path="phoneNumber" id="phoneNumber"  />
-                            </label>
+                            <label>Numer telefonu <form:input path="phoneNumber" id="phoneNumber"  /></label>
+                            <form:errors path="phoneNumber" cssClass="error" style="color: red; font-size: small;"/>
                         </div>
                     </div>
 
                     <div class="form-section--column">
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
-                            <label> Data <form:input class="form-control" type="date" path="pickUpDate" id="pickUpDate"   /> </label>
+                            <label> Data <form:input class="form-control" type="date" path="pickUpDate" id="pickUpDate"/> </label>
                             <form:errors path="pickUpDate" cssClass="error" style="color: red; font-size: small;"/>
                         </div>
 
