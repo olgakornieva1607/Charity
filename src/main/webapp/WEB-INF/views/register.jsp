@@ -29,12 +29,12 @@
 
         <div class="form-group">
             <form:password class="form-control" path="password" id="password" maxlength="20"
-                           placeholder="Hasło"/>
+                            placeholder="Hasło"/>
             <form:errors path="password" cssClass="error" style="color: red; font-size: small;"/>
         </div>
         <div class="form-group">
             <form:password class="form-control" path="password2" id="password2" maxlength="20"
-                           placeholder="Powtórz hasło"/>
+                            placeholder="Powtórz hasło"/>
             <form:errors path="password2" cssClass="error" style="color: red; font-size: small;"/>
         </div>
 

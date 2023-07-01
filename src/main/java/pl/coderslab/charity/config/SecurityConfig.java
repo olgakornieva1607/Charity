@@ -25,7 +25,7 @@ public class SecurityConfig {
         );
         http
                 .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers("/", "/registration").permitAll()
+                                .requestMatchers("/", "/registration", "admin/new").permitAll()
                                 .requestMatchers("/admin/*").hasRole("ADMIN")
                                 .requestMatchers("/resources/images/**","/resources/js/**",
                                         "/resources/css/**", "/WEB-INF/views/header.jsp",

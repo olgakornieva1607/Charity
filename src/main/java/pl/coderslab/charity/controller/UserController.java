@@ -32,13 +32,13 @@ public class UserController {
 
         if(userService.findUserByEmail(user.getEmail()) != null){
             bindingResult.rejectValue("email","registration.username.exist",
-                    "Użytkownik z takim adresem email już istnieje");
+                    "Użytkownik o podanym adresie e-mail już istnieje");
         }
         if(bindingResult.hasErrors()){
             return REGISTRATION_PAGE;
         }
         if(user.getPassword().equals(user.getPassword2())){
-            userService.saveUser(user);
+            userService.createUser(user);
         }else{
             return REGISTRATION_PAGE;
         }

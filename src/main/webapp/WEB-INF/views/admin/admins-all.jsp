@@ -13,7 +13,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <a href="<c:out value="/admin/admin/new"/>"
+        <a href="<c:out value="/admin/new"/>"
            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-plus fa-sm text-white-50"></i> Dodaj administratora</a>
     </div>
@@ -36,8 +36,8 @@
                             <td><c:out value="${admin.surname}"/></td>
                             <td><c:out value="${admin.email}"/></td>
                             <td>
-                                <a href="<c:out value="/admin/admin/edit/${admin.id}"/>">Edytuj</a>
-                                <a href="<c:out value="/admin/admin/delete/${admin.id}"/>">Usuń</a>
+                                <a href="<c:out value="/admin/edit/${admin.id}"/>">Edytuj</a>
+                                <a href="<c:out value="/admin/delete/${admin.id}"/>">Usuń</a>
                             </td>
                         </tr>
                     </c:forEach>

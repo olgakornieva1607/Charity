@@ -10,7 +10,17 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
-    void saveUser(User user);
+    void createUser(User user);
+
+    void createAdmin(User user);
 
     List<User> findAlLByRole(Role role);
+
+    void saveUser(User user);
+
+    void deleteUser(Long id);
+
+    User get(Long id);
+
+
 }
