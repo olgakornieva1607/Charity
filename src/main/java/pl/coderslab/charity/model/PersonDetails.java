@@ -1,8 +1,7 @@
-package pl.coderslab.charity.security;
+package pl.coderslab.charity.model;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.coderslab.charity.model.User;
 import java.util.Collection;
 
 @RequiredArgsConstructor

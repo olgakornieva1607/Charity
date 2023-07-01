@@ -9,11 +9,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.coderslab.charity.model.Category;
 import pl.coderslab.charity.model.CurrentUser;
 import pl.coderslab.charity.model.Donation;
+import pl.coderslab.charity.model.Institution;
 import pl.coderslab.charity.service.CategoryService;
 import pl.coderslab.charity.service.DonationService;
 import pl.coderslab.charity.service.InstitutionService;
+
+import java.util.List;
 
 
 @Controller
@@ -25,11 +29,19 @@ public class DonationController {
     private final DonationService donationService;
 
 
+    @ModelAttribute("categories")
+    public List<Category> categories(){
+        return categoryService.getAllCategories();
+    }
+
+    @ModelAttribute("institutions")
+    public List<Institution> institutions(){
+        return institutionService.getAllInstitutions();
+    }
+
     @GetMapping("/donation")
     public String showDonationForm(Model model){
         model.addAttribute("donation", new Donation());
-        model.addAttribute("categories", categoryService.getAllCategories());
-        model.addAttribute("institutions", institutionService.getAllInstitutions());
         return "form";
     }
 
