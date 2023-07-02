@@ -26,15 +26,22 @@
             <div class="table-responsive">
                 <table class="table">
                     <tr>
+                        <th>Id</th>
                         <th>Imię</th>
                         <th>Nazwisko</th>
                         <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
                     </tr>
                     <c:forEach items="${admins}" var="admin">
                         <tr>
+                            <td><c:out value="${admin.id}"/></td>
                             <td><c:out value="${admin.name}"/></td>
                             <td><c:out value="${admin.surname}"/></td>
                             <td><c:out value="${admin.email}"/></td>
+                            <td><c:forEach items="${admin.roles}" var="role">${role} </c:forEach></td>
+                            <td><c:if test="${admin.enabled > 0}">Aktywny</c:if>
+                                <c:if test="${admin.enabled < 1}">Nieaktywny</c:if></td>
                             <td>
                                 <a href="<c:out value="/admin/edit/${admin.id}"/>">Edytuj</a>
                                 <a href="<c:out value="/admin/delete/${admin.id}"/>">Usuń</a>
