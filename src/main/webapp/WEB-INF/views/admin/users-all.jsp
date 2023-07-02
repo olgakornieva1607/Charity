@@ -37,7 +37,7 @@
                             <td><c:if test="${user.enabled > 0}">Aktywny</c:if>
                                 <c:if test="${user.enabled < 1}">Nieaktywny</c:if></td>
                             <td>
-                                <a href="<c:out value="/admin/user/edit/${user.id}"/>">Edytuj</a>
+                                <a href="<c:out value="/admin/edit/${user.id}"/>">Edytuj</a>
                                 <a href="<c:out value="/admin/user/disable/${user.id}"/>">Zablokuj</a>
                                 <a href="<c:out value="/admin/user/delete/${user.id}"/>">Usuń</a>
                             </td>

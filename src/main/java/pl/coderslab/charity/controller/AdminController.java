@@ -26,6 +26,8 @@ public class AdminController {
     private static final String INSTITUTION_ALL = "redirect:/admin/institution/all";
     private static final String ADMIN_ADD_FORM = "admin/admin-add";
     private static final String ADMIN_ALL = "redirect:/admin/all";
+    private static final String USER_ALL = "redirect:/admin/user/all";
+    private static final String USER_EDIT ="admin/user-edit";
 
     private final InstitutionService institutionService;
     private final UserService userService;
@@ -128,28 +130,33 @@ public class AdminController {
         if(roles.contains(roleService.findByName("ROLE_ADMIN"))) {
             return ADMIN_ALL;
         }
-        return "redirect:/admin/user/all";
+        return USER_ALL;
     }
 
     @GetMapping("/edit/{id}")
-    public String editAdmin(@PathVariable Long id, Model model){
+    public String editUser(@PathVariable Long id, Model model){
         model.addAttribute("user", userService.getUserById(id));
-        return "admin/admin-edit";
+        return USER_EDIT;
     }
 
 
     @PostMapping("/edit/{id}")
-    public String updateAdmin(@PathVariable Long id, @ModelAttribute("user") @Valid User updatedUser,
+    public String updateUser(@PathVariable Long id, @ModelAttribute("user") @Valid User updatedUser,
                               BindingResult result){
         if(result.hasErrors()){
-            return "admin/admin-edit";
+            return USER_EDIT;
         }
         User existingUser = userService.getUserById(id);
         existingUser.setName(updatedUser.getName());
         existingUser.setSurname(updatedUser.getSurname());
         existingUser.setEmail(updatedUser.getEmail());
         userService.saveUser(existingUser);
-        return ADMIN_ALL;
+        Set<Role> roles = userService.getUserById(id).getRoles();
+        if (roles.contains(roleService.findByName("ROLE_ADMIN"))){
+            return ADMIN_ALL;
+        }
+        return USER_ALL;
+
     }
 
     @GetMapping("/user/all")
