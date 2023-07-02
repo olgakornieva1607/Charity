@@ -22,6 +22,7 @@ public class AdminController {
     private static final String INSTITUTION_EDIT = "admin/institution-edit";
     private static final String INSTITUTION_ALL = "redirect:/admin/institution/all";
     private static final String ADMIN_ADD_FORM = "admin/admin-add";
+    private static final String ADMIN_ALL = "redirect:/admin/all";
 
 
     private final InstitutionService institutionService;
@@ -96,13 +97,13 @@ public class AdminController {
 
     @PostMapping("/new")
     public String performRegistration(@ModelAttribute("user") @Valid  User user,
-                                      BindingResult bindingResult){
+                                      BindingResult result){
 
         if(userService.findUserByEmail(user.getEmail()) != null){
-            bindingResult.rejectValue("email","registration.username.exist",
+            result.rejectValue("email","registration.username.exist",
                     "Użytkownik o podanym adresie e-mail już istnieje");
         }
-        if(bindingResult.hasErrors()){
+        if(result.hasErrors()){
             return ADMIN_ADD_FORM;
         }
         if(user.getPassword().equals(user.getPassword2())){
@@ -110,20 +111,34 @@ public class AdminController {
         }else{
             return ADMIN_ADD_FORM;
         }
-        return "redirect:/admin/all";
+        return ADMIN_ALL;
     }
 
     @GetMapping("/delete/{id}")
     public String deleteAdmin(@PathVariable Long id){
         userService.deleteUser(id);
-        return "redirect:/admin/all";
+        return ADMIN_ALL;
     }
 
     @GetMapping("/edit/{id}")
     public String editAdmin(@PathVariable Long id, Model model){
-        model.addAttribute(userService.get(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "admin/admin-edit";
     }
 
+
+    @PostMapping("/edit/{id}")
+    public String updateAdmin(@PathVariable Long id, @ModelAttribute("user") @Valid User updatedUser,
+                              BindingResult result){
+        if(result.hasErrors()){
+            return "admin/admin-edit";
+        }
+        User existingUser = userService.getUserById(id);
+        existingUser.setName(updatedUser.getName());
+        existingUser.setSurname(updatedUser.getSurname());
+        existingUser.setEmail(updatedUser.getEmail());
+        userService.saveUser(existingUser);
+        return ADMIN_ALL;
+    }
 
 }

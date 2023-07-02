@@ -33,11 +33,9 @@ public class User {
     @Column(name = "email", unique = true)
     private String email;
 
-    @NotBlank
     @Column(name = "password")
     private String password;
 
-    @NotBlank
     @Transient
     private String password2;
 

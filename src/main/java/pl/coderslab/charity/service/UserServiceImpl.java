@@ -51,14 +51,13 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
     }
 
-
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
     @Override
-    public User get(Long id) {
+    public User getUserById(Long id) {
         Optional<User> foundUser = userRepository.findById(id);
         return foundUser.orElseThrow(EntityNotFoundException::new);
     }
@@ -67,9 +66,6 @@ public class UserServiceImpl implements UserService{
     public List<User> findAlLByRole(Role role) {
         return userRepository.findAllByRole(role);
     }
-
-
-
 
 
 
