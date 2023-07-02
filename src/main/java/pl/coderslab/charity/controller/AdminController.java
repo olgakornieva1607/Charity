@@ -13,6 +13,8 @@ import pl.coderslab.charity.service.InstitutionService;
 import pl.coderslab.charity.service.RoleService;
 import pl.coderslab.charity.service.UserService;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("admin")
@@ -24,10 +26,14 @@ public class AdminController {
     private static final String ADMIN_ADD_FORM = "admin/admin-add";
     private static final String ADMIN_ALL = "redirect:/admin/all";
 
-
     private final InstitutionService institutionService;
     private final UserService userService;
     private final RoleService roleService;
+
+    @ModelAttribute("roles")
+    public List<Role> roles(){
+        return roleService.findAll();
+    }
 
     @GetMapping("")
     public String showAdminDashboard() {
@@ -140,5 +146,16 @@ public class AdminController {
         userService.saveUser(existingUser);
         return ADMIN_ALL;
     }
+
+    @GetMapping("/user/all")
+    public String showAllUsers(Model model){
+        Role roleUser = roleService.findByName("ROLE_USER");
+        model.addAttribute("users", userService.findAlLByRole(roleUser));
+        return "admin/users-all";
+    }
+
+
+
+
 
 }

@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService{
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
+
     @Override
     public User findUserByEmail(String email) {
 

@@ -84,7 +84,7 @@
 
         <!-- Nav Item - Users -->
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" href="<c:url value="/admin/user/all"/>">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Użytkownicy</span></a>
         </li>
