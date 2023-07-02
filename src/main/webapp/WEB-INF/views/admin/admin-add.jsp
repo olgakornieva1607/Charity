@@ -19,7 +19,7 @@
             <div class="card shadow mb-4" >
     <div class="card-body">
 
-        <form:form method="post" action="/new" modelAttribute="user">
+        <form:form method="post" action="/admin/new" modelAttribute="user">
 
             <label for="name">Imię</label>
             <form:input class="form-control" path="name" id="name" maxlength="20"/><br>

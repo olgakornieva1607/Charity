@@ -14,6 +14,7 @@ import pl.coderslab.charity.service.RoleService;
 import pl.coderslab.charity.service.UserService;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -120,10 +121,14 @@ public class AdminController {
         return ADMIN_ALL;
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteAdmin(@PathVariable Long id){
+    @GetMapping({"/delete/{id}", "/user/delete/{id}"})
+    public String deleteUser(@PathVariable Long id){
+        Set<Role> roles = userService.getUserById(id).getRoles();
         userService.deleteUser(id);
-        return ADMIN_ALL;
+        if(roles.contains(roleService.findByName("ROLE_ADMIN"))) {
+            return ADMIN_ALL;
+        }
+        return "redirect:/admin/user/all";
     }
 
     @GetMapping("/edit/{id}")
