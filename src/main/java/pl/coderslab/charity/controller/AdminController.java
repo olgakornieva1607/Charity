@@ -125,7 +125,7 @@ public class AdminController {
 
     @GetMapping({"/delete/{id}", "/user/delete/{id}"})
     public String deleteUser(@PathVariable Long id){
-        Set<Role> roles = userService.getUserById(id).getRoles();
+        Set<Role> roles = userService.findUserById(id).getRoles();
         userService.deleteUser(id);
         if(roles.contains(roleService.findByName("ROLE_ADMIN"))) {
             return ADMIN_ALL;
@@ -135,7 +135,7 @@ public class AdminController {
 
     @GetMapping("/edit/{id}")
     public String editUser(@PathVariable Long id, Model model){
-        model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("user", userService.findUserById(id));
         return USER_EDIT;
     }
 
@@ -146,17 +146,23 @@ public class AdminController {
         if(result.hasErrors()){
             return USER_EDIT;
         }
-        User existingUser = userService.getUserById(id);
+        User existingUser = userService.findUserById(id);
         existingUser.setName(updatedUser.getName());
         existingUser.setSurname(updatedUser.getSurname());
         existingUser.setEmail(updatedUser.getEmail());
         userService.saveUser(existingUser);
-        Set<Role> roles = userService.getUserById(id).getRoles();
+        Set<Role> roles = userService.findUserById(id).getRoles();
         if (roles.contains(roleService.findByName("ROLE_ADMIN"))){
             return ADMIN_ALL;
         }
         return USER_ALL;
 
+    }
+
+    @GetMapping("user/disable/{id}")
+    public String disableUser(@PathVariable Long id){
+        userService.disableUser(id);
+        return USER_ALL;
     }
 
     @GetMapping("/user/all")
@@ -165,6 +171,8 @@ public class AdminController {
         model.addAttribute("users", userService.findAlLByRole(roleUser));
         return "admin/users-all";
     }
+
+
 
 
 

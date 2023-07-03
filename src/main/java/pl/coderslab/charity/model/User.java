@@ -1,8 +1,6 @@
 package pl.coderslab.charity.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Set;
@@ -18,18 +16,12 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank
-    @Size(min = 2, max = 20)
     @Column(name = "name")
     private String name;
 
-    @NotBlank
-    @Size(min = 2, max = 20)
     @Column(name = "surname")
     private String surname;
 
-    @NotBlank
-    @Size(min = 6, max = 30)
     @Column(name = "email", unique = true)
     private String email;
 

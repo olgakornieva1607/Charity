@@ -58,9 +58,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserById(Long id) {
+    public User findUserById(Long id) {
         Optional<User> foundUser = userRepository.findById(id);
         return foundUser.orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public void disableUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+
+        user.setEnabled(0);
+        userRepository.save(user);
     }
 
     @Override

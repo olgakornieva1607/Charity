@@ -20,7 +20,9 @@ public interface UserService {
 
     void deleteUser(Long id);
 
-    User getUserById(Long id);
+    User findUserById(Long id);
+
+    void disableUser(Long id);
 
 
 }
