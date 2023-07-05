@@ -24,19 +24,21 @@
 
             <div class="card shadow mb-4" >
     <div class="card-body">
-        <form method="post" action="${pageContext.request.contextPath}/user/change-password">
+        <form:form method="post" action="${pageContext.request.contextPath}/user/change-password">
+
             <div class="form-group">
-                <label>Bieżące hasło:</label>
-                <input type="password" name="currentPassword" required>
+                <input type="password" name="currentPassword" required placeholder="Bieżące hasło">
             </div>
+
             <div class="form-group">
-                <label>Nowe hasło:</label>
-                <input type="password" name="newPassword" required>
+                <input type="password" name="newPassword" required placeholder="Nowe hasło">
             </div>
+
             <div>
                 <input class="btn btn-primary" type="submit" value="Zmień hasło">
             </div>
-        </form>
+        </form:form>
+    </div>
 
-</body>
+    </body>
 </html>
