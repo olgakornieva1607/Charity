@@ -1,4 +1,4 @@
-package pl.coderslab.charity.config;
+package pl.coderslab.charity.service;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
