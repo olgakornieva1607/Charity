@@ -21,14 +21,6 @@ import java.util.Set;
 @RequestMapping("admin")
 public class AdminController {
 
-    private static final String INSTITUTION_ADD = "admin/institution-add";
-    private static final String INSTITUTION_EDIT = "admin/institution-edit";
-    private static final String INSTITUTION_ALL = "redirect:/admin/institution/all";
-    private static final String ADMIN_ADD_FORM = "admin/admin-add";
-    private static final String ADMIN_ALL = "redirect:/admin/all";
-    private static final String USER_ALL = "redirect:/admin/user/all";
-    private static final String USER_EDIT ="admin/user-edit";
-
     private final InstitutionService institutionService;
     private final UserService userService;
     private final RoleService roleService;
@@ -53,41 +45,41 @@ public class AdminController {
     @GetMapping("/institution/new")
     public String addInstitution(Model model){
         model.addAttribute(new Institution());
-        return INSTITUTION_ADD;
+        return "admin/institution-add";
     }
 
     @PostMapping("/institution/new")
     public String performAddInstitution(@ModelAttribute("institution") @Valid Institution institution,
                                         BindingResult result){
         if(result.hasErrors()){
-            return INSTITUTION_ADD;
+            return "admin/institution-add";
         }
         institutionService.add(institution);
-        return INSTITUTION_ALL;
+        return "redirect:/admin/institution/all";
     }
 
 
     @GetMapping("/institution/delete/{id}")
     public String deleteInstitution(@PathVariable Long id){
         institutionService.delete(id);
-        return INSTITUTION_ALL;
+        return "redirect:/admin/institution/all";
     }
 
 
     @GetMapping("/institution/edit/{id}")
     public String editInstitution(@PathVariable Long id, Model model) {
         model.addAttribute("institutionToEdit", institutionService.get(id));
-        return INSTITUTION_EDIT;
+        return "admin/institution-edit";
     }
 
     @PostMapping("/institution/edit")
     public String performInstitutionEdit(@ModelAttribute("institutionToEdit") @Valid Institution institution,
                                          BindingResult result){
         if(result.hasErrors()){
-            return INSTITUTION_EDIT;
+            return "admin/institution-edit";
         }
         institutionService.add(institution);
-        return INSTITUTION_ALL;
+        return "redirect:/admin/institution/all";
     }
 
     @GetMapping("/all")
@@ -100,7 +92,7 @@ public class AdminController {
 
     @GetMapping("/new")
     public String addNewAdmin(@ModelAttribute("user") User user){
-        return ADMIN_ADD_FORM;
+        return "admin/admin-add";
 
     }
 
@@ -113,14 +105,14 @@ public class AdminController {
                     "Użytkownik o podanym adresie e-mail już istnieje");
         }
         if(result.hasErrors()){
-            return ADMIN_ADD_FORM;
+            return "admin/admin-add";
         }
         if(user.getPassword().equals(user.getPassword2())){
             userService.createAdmin(user);
         }else{
-            return ADMIN_ADD_FORM;
+            return "admin/admin-add";
         }
-        return ADMIN_ALL;
+        return "redirect:/admin/all";
     }
 
     @GetMapping({"/delete/{id}", "/user/delete/{id}"})
@@ -128,15 +120,15 @@ public class AdminController {
         Set<Role> roles = userService.findUserById(id).getRoles();
         userService.deleteUser(id);
         if(roles.contains(roleService.findByName("ROLE_ADMIN"))) {
-            return ADMIN_ALL;
+            return "redirect:/admin/all";
         }
-        return USER_ALL;
+        return "redirect:/admin/user/all";
     }
 
     @GetMapping("/edit/{id}")
     public String editUser(@PathVariable Long id, Model model){
         model.addAttribute("user", userService.findUserById(id));
-        return USER_EDIT;
+        return "admin/user-edit";
     }
 
 
@@ -144,25 +136,22 @@ public class AdminController {
     public String updateUser(@PathVariable Long id, @ModelAttribute("user") @Valid User updatedUser,
                               BindingResult result){
         if(result.hasErrors()){
-            return USER_EDIT;
+            return "admin/user-edit";
         }
         User existingUser = userService.findUserById(id);
-        existingUser.setName(updatedUser.getName());
-        existingUser.setSurname(updatedUser.getSurname());
-        existingUser.setEmail(updatedUser.getEmail());
-        userService.saveUser(existingUser);
+        userService.updateUser(existingUser, updatedUser);
         Set<Role> roles = userService.findUserById(id).getRoles();
         if (roles.contains(roleService.findByName("ROLE_ADMIN"))){
-            return ADMIN_ALL;
+            return "redirect:/admin/all";
         }
-        return USER_ALL;
+        return "redirect:/admin/user/all";
 
     }
 
-    @GetMapping("user/disable/{id}")
+    @GetMapping("/user/disable/{id}")
     public String disableUser(@PathVariable Long id){
         userService.disableUser(id);
-        return USER_ALL;
+        return "redirect:/admin/user/all";
     }
 
     @GetMapping("/user/all")
@@ -171,11 +160,5 @@ public class AdminController {
         model.addAttribute("users", userService.findAlLByRole(roleUser));
         return "admin/users-all";
     }
-
-
-
-
-
-
 
 }
