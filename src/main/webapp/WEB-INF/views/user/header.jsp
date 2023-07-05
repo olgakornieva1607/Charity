@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Panel użytkownika</title>
 
     <!-- Custom fonts for this template-->
     <link href="<c:url value="/resources/sb-admin/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet" type="text/css">
@@ -42,52 +42,33 @@
         <hr class="sidebar-divider my-0">
 
 
-<%--        <!-- Divider -->--%>
-<%--        <hr class="sidebar-divider">--%>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-<%--        <!-- Heading -->--%>
-<%--        <div class="sidebar-heading">--%>
-<%--            Zarządzanie darami--%>
-<%--        </div>--%>
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Zarządzanie darami
+        </div>
 
-<%--        <!-- Nav Item - Institutions -->--%>
-<%--        <li class="nav-item">--%>
-<%--            <a class="nav-link" href="<c:url value="/admin/institution/all"/>">--%>
-<%--                <i class="fas fa-fw fa-heart"></i>--%>
-<%--                <span>Dary</span></a>--%>
-<%--        </li>--%>
-
-
-<%--        <!-- Divider -->--%>
-<%--        <hr class="sidebar-divider">--%>
-
-<%--        <!-- Heading -->--%>
-<%--        <div class="sidebar-heading">--%>
-<%--            Zarządzanie danymi--%>
-<%--        </div>--%>
-
-<%--        <!-- Nav Item - Donations -->--%>
-<%--        <li class="nav-item">--%>
-<%--            <a class="nav-link" href="<c:url value="/admin/all"/>">--%>
-<%--                <i class="fas fa-fw fa-user"></i>--%>
-<%--                <span>Edytuj dane</span></a>--%>
-<%--        </li>--%>
+        <!-- Nav Item - Donations -->
+        <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/donation"/>">
+                <i class="fas fa-fw fa-heart"></i>
+                <span>Przekaż dary</span></a>
+        </li>
 
 
-<%--        <!-- Divider -->--%>
-<%--        <hr class="sidebar-divider">--%>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-<%--        <!-- Heading -->--%>
-<%--        <div class="sidebar-heading">--%>
-<%--            Zarządzanie hasłem--%>
-<%--        </div>--%>
 
-<%--        <!-- Nav Item - Users -->--%>
-<%--        <li class="nav-item">--%>
-<%--            <a class="nav-link" href="<c:url value="/admin/user/all"/>">--%>
-<%--                <i class="fas fa-fw fa-user"></i>--%>
-<%--                <span>Zmień hasło</span></a>--%>
-<%--        </li>--%>
+        <!-- Nav Item - Institutions -->
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fas fa-fw fa-heart"></i>
+                <span>Moje zbiórki</span></a>
+        </li>
+
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -120,6 +101,9 @@
                                 <sec:authentication property="principal.user.name"/>
                                 <sec:authentication property="principal.user.surname"/>
                             </span>
+                            <form action="<c:url value="/logout"/>" method="post" id="loginForm">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </form>
                             <img class="img-profile rounded-circle"
                                  src="<c:url value="/resources/sb-admin/img/undraw_profile.svg"/>">
                         </a>
