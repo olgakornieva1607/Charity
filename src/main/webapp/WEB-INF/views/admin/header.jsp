@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Panel administratora</title>
 
     <!-- Custom fonts for this template-->
     <link href="<c:url value="/resources/sb-admin/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet" type="text/css">
@@ -120,6 +120,9 @@
                                 <sec:authentication property="principal.user.name"/>
                                 <sec:authentication property="principal.user.surname"/>
                             </span>
+                            <form action="<c:url value="/logout"/>" method="post" id="loginForm">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </form>
                             <img class="img-profile rounded-circle"
                                  src="<c:url value="/resources/sb-admin/img/undraw_profile.svg"/>">
                         </a>
