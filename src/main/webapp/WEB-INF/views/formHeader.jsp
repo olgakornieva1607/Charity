@@ -24,7 +24,7 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form>
                 <ul class="dropdown">
-                    <li><a href="#">Profil</a></li>
+                    <li><a href="<c:url value="/user/profile"/>">Profil</a></li>
                     <li><a href="#">Moje zbiórki</a></li>
                     <li><a href="#" onclick="document.getElementById('loginForm').submit()">Wyloguj</a></li>
                 </ul>

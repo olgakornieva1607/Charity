@@ -2,11 +2,12 @@ package pl.coderslab.charity.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import pl.coderslab.charity.model.CurrentUser;
 import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.service.UserService;
 
@@ -44,6 +45,40 @@ public class UserController {
         }
         return "login";
     }
+
+
+    @GetMapping("user/profile")
+    public String showUserProfile(){
+        return "user/user";
+    }
+
+    @GetMapping("user/edit")
+    public String editUser(Model model, @AuthenticationPrincipal CurrentUser currentUser){
+        model.addAttribute("user", currentUser.getUser());
+        return "user/user-edit";
+    }
+
+    @PostMapping("/user/edit")
+    public String updateUser(@ModelAttribute("user") @Valid User updatedUser,
+                             BindingResult result, @AuthenticationPrincipal CurrentUser currentUser){
+        if(result.hasErrors()){
+            return "user/user-edit";
+        }
+        User existingUser = currentUser.getUser();
+        existingUser.setName(updatedUser.getName());
+        existingUser.setSurname(updatedUser.getSurname());
+        existingUser.setEmail(updatedUser.getEmail());
+        userService.saveUser(existingUser);
+        return "redirect:/user/profile";
+    }
+
+    @GetMapping("user/change-password")
+    public String changePassword(){
+        return "user/change-password";
+    }
+
+
+
 
 
 }

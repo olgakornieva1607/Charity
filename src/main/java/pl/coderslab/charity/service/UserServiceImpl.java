@@ -2,6 +2,7 @@ package pl.coderslab.charity.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.model.Role;
@@ -71,10 +72,14 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
     }
 
+
     @Override
     public List<User> findAlLByRole(Role role) {
+
         return userRepository.findAllByRole(role);
     }
+
+
 
 
 
