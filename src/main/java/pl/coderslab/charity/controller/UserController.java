@@ -15,15 +15,13 @@ import pl.coderslab.charity.service.UserService;
 @RequiredArgsConstructor
 public class UserController {
 
-    private static final String REGISTRATION_PAGE = "register";
-
     private final UserService userService;
 
 
     @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("user") User user){
 
-        return REGISTRATION_PAGE;
+        return "register";
     }
 
 
@@ -36,23 +34,23 @@ public class UserController {
                     "Użytkownik o podanym adresie e-mail już istnieje");
         }
         if(bindingResult.hasErrors()){
-            return REGISTRATION_PAGE;
+            return "register";
         }
         if(user.getPassword().equals(user.getPassword2())){
             userService.createUser(user);
         }else{
-            return REGISTRATION_PAGE;
+            return "register";
         }
         return "login";
     }
 
 
-    @GetMapping("user/profile")
+    @GetMapping("/user/profile")
     public String showUserProfile(){
         return "user/user";
     }
 
-    @GetMapping("user/edit")
+    @GetMapping("/user/edit")
     public String editUser(Model model, @AuthenticationPrincipal CurrentUser currentUser){
         model.addAttribute("user", currentUser.getUser());
         return "user/user-edit";
@@ -65,20 +63,30 @@ public class UserController {
             return "user/user-edit";
         }
         User existingUser = currentUser.getUser();
-        existingUser.setName(updatedUser.getName());
-        existingUser.setSurname(updatedUser.getSurname());
-        existingUser.setEmail(updatedUser.getEmail());
-        userService.saveUser(existingUser);
+        userService.updateUser(existingUser, updatedUser);
         return "redirect:/user/profile";
     }
 
-    @GetMapping("user/change-password")
+    @GetMapping("/user/change-password")
     public String changePassword(){
         return "user/change-password";
     }
 
 
-
+    @PostMapping("/user/change-password")
+    public String performChangePassword(@RequestParam("currentPassword") String currentPassword,
+                                        @RequestParam("newPassword") String newPassword,
+                                        @AuthenticationPrincipal CurrentUser currentUser,
+                                        Model model){
+        User user = currentUser.getUser();
+        if (!userService.isValidPassword(user, currentPassword)) {
+            model.addAttribute("error", "Nieprawidłowe hasło");
+            return "user/change-password";
+        }
+        userService.changePassword(user, newPassword);
+        model.addAttribute("success", "Hasło zostało zmienione");
+        return "user/change-password";
+    }
 
 
 }

@@ -45,7 +45,7 @@ public class DonationController {
         return "form";
     }
 
-    @PostMapping("donation")
+    @PostMapping("/donation")
     public String handleDonationForm(@ModelAttribute("donation") @Valid Donation donation, BindingResult result,
                                      @AuthenticationPrincipal CurrentUser currentUser){
         if(result.hasErrors()){
