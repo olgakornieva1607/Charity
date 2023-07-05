@@ -16,7 +16,7 @@ public interface UserService {
 
     List<User> findAlLByRole(Role role);
 
-    void saveUser(User user);
+    void updateUser(User existingUser, User updatedUser);
 
     void deleteUser(Long id);
 
@@ -25,6 +25,9 @@ public interface UserService {
     void disableUser(Long id);
 
 
+    void changePassword(User user, String password);
+
+    boolean isValidPassword(User user, String password);
 
 
 

@@ -49,8 +49,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void saveUser(User user) {
-        userRepository.save(user);
+    public void updateUser(User existingUser, User updatedUser) {
+        existingUser.setName(updatedUser.getName());
+        existingUser.setSurname(updatedUser.getSurname());
+        existingUser.setEmail(updatedUser.getEmail());
+        userRepository.save(existingUser);
     }
 
     @Override
@@ -79,7 +82,17 @@ public class UserServiceImpl implements UserService{
         return userRepository.findAllByRole(role);
     }
 
+    @Override
+    public void changePassword(User user, String password) {
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+    }
 
+    @Override
+    public boolean isValidPassword(User user, String password) {
+        String hashedPassword = user.getPassword();
+        return BCrypt.checkpw(password, hashedPassword);
+    }
 
 
 
